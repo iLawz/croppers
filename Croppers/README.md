@@ -1,4 +1,4 @@
-Github page for the Croppers spigot plugin
+Github page for the Croppers spigot plugin, download at: https://www.spigotmc.org/resources/croppers.78479/
 
 ## Features
 Adds various custom hoppers ('Croppers'). These croppers have the ability to instantly pickup items of their corresponding type in their current chunk.
