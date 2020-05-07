@@ -286,7 +286,6 @@ public class CropperData {
 		String[] parts = s.split(",");
         return new Location(Bukkit.getWorld(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]),
                 Integer.parseInt(parts[3]));
-
 	}	
 	
 	/*
