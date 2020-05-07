@@ -4,11 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.UUID;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -26,7 +28,7 @@ public class CropperData {
 	private File dataFolder; 
 	
 	private HashMap<Location, String> liveCroppers;
-	private HashMap<Location, Player> playerCroppers; //probably could have been better to add player name to type and just split the string when needed
+	private HashMap<Location, UUID> playerCroppers; //probably could have been better to add player name to type and just split the string when needed
 	
 	public CropperData(Croppers plugin) {
 		this.plugin = plugin;
@@ -35,7 +37,7 @@ public class CropperData {
 		folder = new File(dataFolder, "userdata" + File.separator);
 		
 		liveCroppers = new HashMap<Location, String>();
-		playerCroppers = new HashMap<Location, Player>();
+		playerCroppers = new HashMap<Location, UUID>();
 	}
 	
 	/*
@@ -55,27 +57,26 @@ public class CropperData {
 		
 			loadUserdataFromFile(file);
 						
-			Player p = Bukkit.getServer().getPlayer(fileConfig.getString("name"));
-			
-			if(p == null) {
-				break;
-			}
+			UUID pUUID = removeExtension(file);
 	
 			if(fileConfig.getConfigurationSection("hoppers.placed") == null) {
 				break;
 			}
 			
 			for(String key : fileConfig.getConfigurationSection("hoppers.placed").getKeys(false)) {
-	
 				Location loc = deserializeLocation(fileConfig.getString("hoppers.placed." + key + ".location"));
 				String type = fileConfig.getString("hoppers.placed." + key + ".type");
 				
-				playerCroppers.put(loc, p);
+				playerCroppers.put(loc, pUUID);
 				liveCroppers.put(loc, type);
 			}
 		}
 		
 		plugin.getLogger().log(Level.INFO, "All active croppers loaded!");
+
+		plugin.getLogger().log(Level.INFO, "Loaded croppers:" + liveCroppers.size());
+		//plugin.getLogger().log(Level.INFO, "Loaded player croppers:" + playerCroppers.size());
+		
 	}
 	
 	/*
@@ -133,6 +134,15 @@ public class CropperData {
 	}
 	
 	/*
+	 * Load userdata for play
+	 * @param p Userdata to be loaded
+	 */
+	public void loadUserdata(OfflinePlayer p) {
+		userFile = new File(folder, p.getUniqueId() + ".yml");
+		fileConfig = YamlConfiguration.loadConfiguration(userFile);
+	}
+	
+	/*
 	 * Loads userdata directly from file in ./userdata directory
 	 * @param file File to be loaded
 	 */
@@ -184,7 +194,7 @@ public class CropperData {
 		fileConfig.set("hoppers.placed." + hopperName + ".type", type.toLowerCase());
 		fileConfig.set("hoppers.placed." + hopperName + ".location", serializeLocation(loc));
 		liveCroppers.put(loc, type);
-		playerCroppers.put(loc, p);
+		playerCroppers.put(loc, p.getUniqueId());
 		
 		//liveCroppers.entrySet().stream().forEach(e -> Bukkit.broadcastMessage(e.getKey().toString() + ":" + e.getValue()));
 		
@@ -201,9 +211,14 @@ public class CropperData {
 		int chunkX = loc.getChunk().getX();
 		int chunkZ = loc.getChunk().getZ();
 		
-		Player owner = playerCroppers.get(loc);
+		Player owner = Bukkit.getServer().getPlayer(playerCroppers.get(loc));
 		
-		loadUserdata(owner);
+		if(owner == null) {
+			OfflinePlayer offlineOwner = Bukkit.getServer().getOfflinePlayer(playerCroppers.get(loc));
+			loadUserdata(offlineOwner);
+		} else {
+			loadUserdata(owner);
+		}
 		
 		String hopperName = "hoppers.placed." + "hopper" + chunkX + "_" + chunkZ;
 
@@ -273,4 +288,15 @@ public class CropperData {
                 Integer.parseInt(parts[3]));
 
 	}	
+	
+	/*
+	 * removes file extension and returns the file name
+	 * @param file File name to be pruned
+	 */
+	private UUID removeExtension(File file) {
+		String name = file.getName();
+		name = name.substring(0, name.length()-4);
+		return UUID.fromString(name);
+	}
+	
 }

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -39,7 +40,6 @@ public class CropperListener implements Listener {
 		}
 		
 		if(cropperExists(e.getBlock().getLocation())) {
-			
 			if(!e.getPlayer().hasPermission("croppers.break")) {
 				e.getPlayer().sendMessage(CropperUtils.color(CONFIG.COMMAND_PERM_DENIED));
 				e.setCancelled(true);
