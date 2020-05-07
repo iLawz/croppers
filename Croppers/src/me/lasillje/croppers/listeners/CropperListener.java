@@ -29,7 +29,6 @@ public class CropperListener implements Listener {
 	
 	public CropperListener(Croppers plugin) {
 		this.plugin = plugin;
-		
 	}
 	
 	@EventHandler
@@ -122,7 +121,6 @@ public class CropperListener implements Listener {
 		}
 		
 		cropperLocations.forEach(k->e.blockList().remove(k.getBlock()));
-		
 	}
 	
 	/*
@@ -143,6 +141,5 @@ public class CropperListener implements Listener {
 	private List<Block> getExplodedCroppers(List<Block> blocks) {
 		return blocks.stream().filter(b -> b.getType() == Material.HOPPER).collect(Collectors.toList());
 	}
-	
 }
 

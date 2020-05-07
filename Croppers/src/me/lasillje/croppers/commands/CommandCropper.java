@@ -46,6 +46,17 @@ public class CommandCropper implements CommandExecutor, TabCompleter {
 			}
 		} else
 			
+		if(args.length == 1) {
+			
+			if(sender.hasPermission("croppers.give")) {
+				giveCropper(args[0],(Player) sender);
+				return true;
+			} else {
+				sender.sendMessage(CropperUtils.color(CONFIG.COMMAND_PERM_DENIED));
+			}
+			
+		} else
+			
 		if(args.length == 2) {
 			
 			if(sender.hasPermission("croppers.give")) {

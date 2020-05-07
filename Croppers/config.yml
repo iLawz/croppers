@@ -7,7 +7,7 @@ croppers_new_max: '&7Set maximum amount of croppers to &b%number% &7for &b%playe
 croppers_nan: '&cPlease enter a number!'
 
 croppers_help_1: '&7--- &cAvailable commands &7---'
-croppers_help_2: '&b/cropper <type> <player> &7to give a cropper of that specific type!'
+croppers_help_2: '&b/cropper <type> [player] &7to give a cropper of that specific type!'
 croppers_help_3: '&b/cropper setmax <player> <limit> &7to change the maximum amount of croppers available to that player.'
 croppers_gave: '&7Gave &b%player%&7 a cropper with type %typecolor%%type%&7!'
 croppers_invalid_type: '&cNot a valid cropper type!'

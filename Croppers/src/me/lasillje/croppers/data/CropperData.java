@@ -38,7 +38,6 @@ public class CropperData {
 		playerCroppers = new HashMap<Location, Player>();
 	}
 	
-	
 	/*
 	 * Function to load all currently active croppers into a HashMap
 	 * Location and type are stored.
@@ -77,9 +76,11 @@ public class CropperData {
 		}
 		
 		plugin.getLogger().log(Level.INFO, "All active croppers loaded!");
-		
 	}
 	
+	/*
+	 * Get live croppers in the server
+	 */
 	public HashMap<Location, String> getLiveCroppers() {
 		return liveCroppers;
 	}
