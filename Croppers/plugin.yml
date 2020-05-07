@@ -1,0 +1,8 @@
+name: Croppers
+main: me.lasillje.croppers.Croppers
+version: 1.0
+api-version: 1.15
+commands:
+   cropper:
+      description: Main cropper command
+      usage: /<command> <type> [player]
