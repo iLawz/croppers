@@ -43,6 +43,7 @@ public class CropperListener implements Listener {
 			if(!e.getPlayer().hasPermission("croppers.break")) {
 				e.getPlayer().sendMessage(CropperUtils.color(CONFIG.COMMAND_PERM_DENIED));
 				e.setCancelled(true);
+				return;
 			}
 			
 			String type = plugin.getCropperData().getLiveCroppers().get(e.getBlock().getLocation()).toLowerCase();
