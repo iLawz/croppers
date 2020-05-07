@@ -28,7 +28,7 @@ public class CropperData {
 	private File dataFolder; 
 	
 	private HashMap<Location, String> liveCroppers;
-	private HashMap<Location, UUID> playerCroppers; //probably could have been better to add player name to type and just split the string when needed
+	private HashMap<Location, UUID> playerCroppers; //Could have been better to merge the type and UUID and then split when needed
 	
 	public CropperData(Croppers plugin) {
 		this.plugin = plugin;
