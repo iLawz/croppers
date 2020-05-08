@@ -297,5 +297,4 @@ public class CropperData {
 		name = name.substring(0, name.length()-4);
 		return UUID.fromString(name);
 	}
-	
 }

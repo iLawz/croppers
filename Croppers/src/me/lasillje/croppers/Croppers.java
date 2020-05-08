@@ -57,5 +57,4 @@ public class Croppers extends JavaPlugin {
 	public CropperData getCropperData() {
 		return cropperData;
 	}
-
 }

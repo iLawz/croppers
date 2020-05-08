@@ -24,6 +24,7 @@ public class CONFIG {
 	public static String GAVE_HOPPER; //When using /cropper <type>
 	public static String INVALID_TYPE; //When using /cropper <type> incorrectly
 	public static String INVALID_PLAYER; //Player not found
+	
 	/*
 	 * Lore
 	 */
@@ -52,5 +53,4 @@ public class CONFIG {
 		plugin.getConfig().options().copyDefaults(true);
 		plugin.saveDefaultConfig();
 	}
-	
 }
