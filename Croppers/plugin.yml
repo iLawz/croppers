@@ -1,7 +1,8 @@
 name: Croppers
 main: me.lasillje.croppers.Croppers
 version: 1.0.1
-api-version: 1.15
+api-version: 1.13
+author: alphalawz
 commands:
    cropper:
       description: Main cropper command
